@@ -2,53 +2,47 @@
 # -*- coding: utf-8 -*-
 
 import os
+import re
 import sys
-
-# 示例项目列表
-EXAMPLES = [
-    "01. SEO简易爬虫",
-    "02. 自动化办公",
-    "03. 批量图片处理",
-    "04. 数据分析与可视化",
-    "05. 自动发送邮件或短信通知",
-    "06. 定时任务与脚本调度",
-    "07. 股票/基金/比特币数据监控",
-    "08. 网站/接口性能监测与报警",
-    "09. 微信/钉钉机器人消息推送",
-    "10. API接口开发",
-    "11. 数据库批量管理",
-    "12. 自动填表、自动化表单录入",
-    "13. 简易桌面应用开发",
-    "14. PDF文本提取与合并分割",
-    "15. 音频识别转文字",
-    "16. OCR图片识别",
-    "17. 视频剪辑自动化",
-    "18. 批量重命名和整理文件夹",
-    "19. 快速制作简易小游戏",
-    "20. 命令行工具开发",
-    "21. Word/Excel报表生成自动化",
-    "22. 本地记账与财务管理脚本",
-    "23. AI写作助手",
-    "24. 聊天机器人开发",
-    "25. 爬虫+数据分析电商选品辅助工具",
-    "26. 智能家居脚本控制",
-    "27. 批量网络测速与结果分析",
-    "28. 自动化注册/登录/数据采集测试脚本",
-    "29. 监控本地目录变化",
-    "30. 自制词库/背单词工具/学习辅助程序"
-]
 
 # 项目根目录
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 EXAMPLES_DIR = os.path.join(ROOT_DIR, "examples")
+README_PATH = os.path.join(ROOT_DIR, "README.md")
 
-def create_example_structure(example_num, example_name):
+def parse_readme():
+    """从README.md文件中解析示例项目列表"""
+    examples = []
+    
+    try:
+        with open(README_PATH, 'r', encoding='utf-8') as f:
+            content = f.read()
+            
+        # 使用正则表达式匹配示例项目
+        pattern = r'\[(\d+)\.\s+(.*?)\]\(examples/(\d+)/README\.md\)'
+        matches = re.findall(pattern, content)
+        
+        for match in matches:
+            num, name, dir_num = match
+            examples.append({
+                'num': num,
+                'name': name,
+                'dir': dir_num
+            })
+            
+        return examples
+    except Exception as e:
+        print(f"解析README.md时出错: {e}")
+        return []
+
+def create_example_structure(example):
     """创建示例项目的目录结构"""
-    # 提取编号
-    num = example_num.split(".")[0].strip()
+    num = example['num']
+    name = example['name']
+    dir_num = example['dir']
     
     # 创建示例目录
-    example_dir = os.path.join(EXAMPLES_DIR, num)
+    example_dir = os.path.join(EXAMPLES_DIR, dir_num)
     if not os.path.exists(example_dir):
         os.makedirs(example_dir)
         print(f"创建目录: {example_dir}")
@@ -59,7 +53,7 @@ def create_example_structure(example_num, example_name):
     readme_path = os.path.join(example_dir, "README.md")
     if not os.path.exists(readme_path):
         with open(readme_path, "w", encoding="utf-8") as f:
-            f.write(f"# {example_name}\n\n")
+            f.write(f"# {num}. {name}\n\n")
             f.write("## 项目介绍\n\n")
             f.write("这是一个Python实践项目，用于...\n\n")
             f.write("## 功能特点\n\n")
@@ -78,15 +72,43 @@ def create_example_structure(example_num, example_name):
         print(f"文件已存在: {readme_path}")
     
     # 创建示例代码文件
-    code_path = os.path.join(example_dir, "main.py")
+    main_file = "main.py"
+    if name.lower().find("web") >= 0 or name.lower().find("api") >= 0:
+        main_file = "app.py"  # Web应用通常使用app.py
+    
+    code_path = os.path.join(example_dir, main_file)
     if not os.path.exists(code_path):
         with open(code_path, "w", encoding="utf-8") as f:
             f.write("#!/usr/bin/env python3\n")
             f.write("# -*- coding: utf-8 -*-\n\n")
-            f.write(f"'''\n{example_name}\n'''\n\n")
-            f.write("def main():\n")
-            f.write("    print('Hello, Python in Practice!')\n")
-            f.write("    # 在这里实现你的代码\n\n")
+            f.write(f"'''\n{num}. {name}\n'''\n\n")
+            
+            # 根据项目类型生成不同的模板代码
+            if name.lower().find("爬虫") >= 0:
+                f.write("import requests\n")
+                f.write("from bs4 import BeautifulSoup\n\n")
+                f.write("def crawl_website(url):\n")
+                f.write("    response = requests.get(url)\n")
+                f.write("    soup = BeautifulSoup(response.text, 'html.parser')\n")
+                f.write("    # 在这里提取数据\n")
+                f.write("    return soup\n\n")
+                f.write("def main():\n")
+                f.write("    url = 'https://example.com'\n")
+                f.write("    data = crawl_website(url)\n")
+                f.write("    print('爬取完成!')\n\n")
+            elif name.lower().find("api") >= 0:
+                f.write("from flask import Flask, request, jsonify\n\n")
+                f.write("app = Flask(__name__)\n\n")
+                f.write("@app.route('/api/v1/hello', methods=['GET'])\n")
+                f.write("def hello():\n")
+                f.write("    return jsonify({'message': 'Hello, World!'})\n\n")
+                f.write("def main():\n")
+                f.write("    app.run(debug=True)\n\n")
+            else:
+                f.write("def main():\n")
+                f.write("    print('Hello, Python in Practice!')\n")
+                f.write("    # 在这里实现你的代码\n\n")
+            
             f.write("if __name__ == '__main__':\n")
             f.write("    main()\n")
         print(f"创建文件: {code_path}")
@@ -98,6 +120,19 @@ def create_example_structure(example_num, example_name):
     if not os.path.exists(req_path):
         with open(req_path, "w", encoding="utf-8") as f:
             f.write("# 项目依赖\n")
+            
+            # 根据项目类型添加不同的依赖
+            if name.lower().find("爬虫") >= 0:
+                f.write("requests>=2.25.1\n")
+                f.write("beautifulsoup4>=4.9.3\n")
+            elif name.lower().find("数据分析") >= 0:
+                f.write("pandas>=1.3.0\n")
+                f.write("numpy>=1.20.0\n")
+                f.write("matplotlib>=3.4.0\n")
+            elif name.lower().find("api") >= 0:
+                f.write("flask>=2.0.0\n")
+                f.write("flask-restful>=0.3.9\n")
+            
         print(f"创建文件: {req_path}")
     else:
         print(f"文件已存在: {req_path}")
@@ -109,13 +144,19 @@ def main():
         os.makedirs(EXAMPLES_DIR)
         print(f"创建主目录: {EXAMPLES_DIR}")
     
+    # 解析README.md获取示例项目列表
+    examples = parse_readme()
+    
+    if not examples:
+        print("未能从README.md中解析出示例项目，请检查文件格式。")
+        return
+    
+    print(f"从README.md中解析出{len(examples)}个示例项目。")
+    
     # 为每个示例创建目录结构
-    for example in EXAMPLES:
-        parts = example.split(".", 1)
-        if len(parts) == 2:
-            example_num = parts[0].strip()
-            example_name = parts[1].strip()
-            create_example_structure(example_num, example_name)
+    for example in examples:
+        print(f"\n处理示例: {example['num']}. {example['name']}")
+        create_example_structure(example)
     
     print("\n目录结构生成完成！")
 
