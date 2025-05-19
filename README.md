@@ -1,32 +1,31 @@
 ## 范例大全
-- [SEO简易爬虫](examples/0101/README.md) 
-1. 网页数据爬取（Web Scraping）
-2. 自动化办公（Excel/PDF 批处理）
-3. 批量图片处理（缩放、水印、格式转换）
-4. 数据分析与可视化（Pandas + Matplotlib）
-5. 自动发送邮件或短信通知
-6. 定时任务与脚本调度（替代手动操作）
-7. 股票/基金/比特币数据监控
-8. 网站/接口性能监测与报警
-9. 微信/钉钉机器人消息推送
-10. API接口开发（如 Flask/Django FastAPI）
-11. 数据库批量管理（MySQL/SQLite/PostgreSQL）
-12. 自动填表、自动化表单录入
-13. 简易桌面应用开发（Tkinter/PyQt）
-14. PDF文本提取与合并分割
-15. 音频识别转文字（语音转写）
-16. OCR图片识别（图片转文字）
-17. 视频剪辑自动化（片头片尾、截取）
-18. 批量重命名和整理文件夹
-19. 快速制作简易小游戏（Pygame）
-20. 命令行工具开发（CLI）
-21. Word/Excel 报表生成自动化
-22. 本地记账与财务管理脚本
-23. AI写作助手（接入OpenAI等模型）
-24. 聊天机器人开发（基于 NLP 库）
-25. 爬虫 + 数据分析 = 电商选品辅助工具
-26. 智能家居脚本控制（如树莓派自动开灯）
-27. 批量网络测速与结果分析
-28. 自动化注册/登录/数据采集测试脚本
-29. 监控本地目录变化（文件新增/删除等）
-30. 自制词库/背单词工具/学习辅助程序
+- [01. SEO简易爬虫](examples/01/README.md)
+- [02. 自动化办公](examples/02/README.md)
+- [03. 批量图片处理](examples/03/README.md)
+- [04. 数据分析与可视化](examples/04/README.md)
+- [05. 自动发送邮件或短信通知](examples/05/README.md)
+- [06. 定时任务与脚本调度](examples/06/README.md)
+- [07. 股票/基金/比特币数据监控](examples/07/README.md)
+- [08. 网站/接口性能监测与报警](examples/08/README.md)
+- [09. 微信/钉钉机器人消息推送](examples/09/README.md)
+- [10. API接口开发](examples/10/README.md)
+- [11. 数据库批量管理](examples/11/README.md)
+- [12. 自动填表、自动化表单录入](examples/12/README.md)
+- [13. 简易桌面应用开发](examples/13/README.md)
+- [14. PDF文本提取与合并分割](examples/14/README.md)
+- [15. 音频识别转文字](examples/15/README.md)
+- [16. OCR图片识别](examples/16/README.md)
+- [17. 视频剪辑自动化](examples/17/README.md)
+- [18. 批量重命名和整理文件夹](examples/18/README.md)
+- [19. 快速制作简易小游戏](examples/19/README.md)
+- [20. 命令行工具开发](examples/20/README.md)
+- [21. Word/Excel报表生成自动化](examples/21/README.md)
+- [22. 本地记账与财务管理脚本](examples/22/README.md)
+- [23. AI写作助手](examples/23/README.md)
+- [24. 聊天机器人开发](examples/24/README.md)
+- [25. 爬虫+数据分析电商选品辅助工具](examples/25/README.md)
+- [26. 智能家居脚本控制](examples/26/README.md)
+- [27. 批量网络测速与结果分析](examples/27/README.md)
+- [28. 自动化注册/登录/数据采集测试脚本](examples/28/README.md)
+- [29. 监控本地目录变化](examples/29/README.md)
+- [30. 自制词库/背单词工具/学习辅助程序](examples/30/README.md)
