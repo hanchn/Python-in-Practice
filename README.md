@@ -29,3 +29,4 @@
 - [28. 自动化注册/登录/数据采集测试脚本](examples/28/README.md)
 - [29. 监控本地目录变化](examples/29/README.md)
 - [30. 自制词库/背单词工具/学习辅助程序](examples/30/README.md)
+- [31. 自动生成文件结构脚本](examples/31/README.md)
