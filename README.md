@@ -1,5 +1,5 @@
 ## 范例大全
-- [SEO简易爬虫](examples/seo-crawler/README.md) 
+- [SEO简易爬虫](examples/0101/README.md) 
 1. 网页数据爬取（Web Scraping）
 2. 自动化办公（Excel/PDF 批处理）
 3. 批量图片处理（缩放、水印、格式转换）
